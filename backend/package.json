@@ -1,0 +1,19 @@
+{
+  "name": "chatbackend",
+  "version": "1.0.0",
+  "description": "a basic chat app",
+  "keywords": [
+    "node"
+  ],
+  "license": "ISC",
+  "author": "Ankit Kumar Maurya",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0"
+  }
+}

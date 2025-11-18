@@ -1,0 +1,100 @@
+/* ========== Discord Style Sidebar ========== */
+.discord-sidebar {
+    width: 340px;
+    height: 100vh;
+    background: #1e1f22;
+    border-right: 1px solid #2b2d31;
+    display: flex;
+    flex-direction: column;
+    font-family: "Inter", monospace;
+    color: #d1d5db;
+}
+.sidebar-users::-webkit-scrollbar {
+    display: none;
+}
+.sidebar-users {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+
+/* Header */
+.sidebar-header {
+    padding: 16px;
+    font-size: 18px;
+    color: white;
+    font-weight: 600;
+    border-bottom: 1px solid #2b2d31;
+}
+
+/* Users list area */
+.sidebar-users {
+    padding: 12px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+/* User item */
+.user-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    margin-bottom: 6px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.15s ease;
+    color: #c7c7c7;
+}
+
+.user-item:hover {
+    background: #35373b;
+    color: white;
+}
+
+.active-user {
+    background: #4752c4; /* Discord blurple */
+    color: white;
+}
+
+/* Avatar bubble */
+.user-avatar {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    background: #2f3136;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+}
+
+/* Online/Offline Dot */
+.status-dot {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid #1e1f22;
+}
+
+.online {
+    background-color: #3ba55d;
+}
+
+.offline {
+    background-color: #747f8d;
+}
+
+/* Footer */
+.sidebar-footer {
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #2b2d31;
+    font-size: 14px;
+    gap: 8px;
+    color: #c4c4c4;
+}

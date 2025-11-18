@@ -1,93 +1,108 @@
-import React, { useState, useEffect, useRef } from 'react';
-import './styles/Chat.css'; // Make sure to create this file!
+import React, { useState, useRef, useEffect } from "react";
+import './styles/Chat.css'
 
-const Chat = () => {
-  // State for messages and current input
-  const [messages, setMessages] = useState([
-    { id: 1, text: "System Boot initiated. Please enter your command.", sender: 'bot' },
-    { id: 2, text: "I need to check my account status.", sender: 'user' },
-    { id: 3, text: "Accessing database... User credentials confirmed. Status: ACTIVE.", sender: 'bot' },
-  ]);
-  const [input, setInput] = useState('');
+export default function Chat({ selectedUser }) {
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState("");
+  const [file, setFile] = useState(null);
 
-  // Ref to automatically scroll to the newest message
-  const messagesEndRef = useRef(null);
+  const bottomRef = useRef(null);
 
-  // Scroll to the bottom of the message list whenever messages update
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  // Auto-scroll every time messages update
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  const handleSend = () => {
+    if (!input.trim() && !file) return;
+
+    let newMessage = { sender: "You", text: input };
+
+    if (file) {
+      if (file.type.startsWith("image/")) {
+        newMessage = {
+          sender: "You",
+          type: "image",
+          url: URL.createObjectURL(file),
+          name: file.name,
+        };
+      } else {
+        newMessage = {
+          sender: "You",
+          type: "file",
+          url: URL.createObjectURL(file),
+          name: file.name,
+        };
+      }
+    }
+
+    setMessages((prev) => [...prev, newMessage]);
+
+    setInput("");
+    setFile(null);
   };
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-  
-  // Function to handle sending a message
-  const handleSend = (e) => {
-    e.preventDefault();
-    const messageText = input.trim();
-    if (messageText === '') return;
-
-    const newMessage = {
-      id: messages.length + 1,
-      text: messageText,
-      sender: 'user', 
-    };
-    
-    setMessages((prevMessages) => [...prevMessages, newMessage]);
-    setInput('');
-    
-    // Simple mock bot response logic
-    setTimeout(() => {
-      const botResponse = {
-        id: messages.length + 2,
-        text: `Executing command: "${messageText}". Reply code 200.`,
-        sender: 'bot',
-      };
-      setMessages((prevMessages) => [...prevMessages, botResponse]);
-    }, 800);
+  const handleFileChange = (e) => {
+    if (!e.target.files[0]) return;
+    setFile(e.target.files[0]);
   };
 
   return (
-    // Outer container for full-screen centering and dark theme
-    <div className='chat-page-container'>
-      
-      {/* Inner container for the chat box structure and aesthetic */}
-      <div className='chat-window-container'> 
-        
-        <header className='chat-header'>
-          {/* Using neon-title for the thematic look */}
-          <h2 className='neon-title'>|  CHAT | username </h2>
-        </header>
+    <div className="chat-box">
 
-        {/* Message Display Area */}
-        <div className='message-list'>
-          {messages.map((message) => (
-            <div key={message.id} className={`message-line ${message.sender}`}>
-              <span className='timestamp'>[{new Date().toLocaleTimeString()}]</span>
-              <span className='prompt-indicator'>{message.sender === 'user' ? '>>' : 'CMD:'}</span>
-              <span className='message-text'>{message.text}</span>
-            </div>
-          ))}
-          {/* Element to scroll to */}
-          <div ref={messagesEndRef} />
-        </div>
+      {/* Header */}
+      <div className="chat-header">
+        {selectedUser ? selectedUser.username : "Select a user"}
+      </div>
 
-        {/* Input Form */}
-        <form onSubmit={handleSend} className='chat-input-form'>
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="ENTER COMMAND HERE..."
-            className='chat-input'
-          />
-          <button type="submit" className='send-button submit-button'>Send >></button>
-        </form>
-        
+      {/* Messages */}
+      <div className="chat-body">
+        {messages.map((msg, index) => (
+          <div key={index} className="chat-msg">
+            <strong>{msg.sender}:</strong>
+
+            {msg.text && <p>{msg.text}</p>}
+
+            {/* Image preview */}
+            {msg.type === "image" && (
+              <img src={msg.url} alt="" className="chat-image" />
+            )}
+
+            {/* File download */}
+            {msg.type === "file" && (
+              <a className="chat-file" href={msg.url} download>
+                📄 {msg.name}
+              </a>
+            )}
+          </div>
+        ))}
+
+        <div ref={bottomRef}></div>
+      </div>
+
+      {/* Input Section */}
+      <div className="chat-input-bar">
+
+        {/* File Upload Button */}
+        <label className="upload-btn">
+          📎
+          <input type="file" hidden onChange={handleFileChange} />
+        </label>
+
+        {/* Text Input */}
+        <input
+          className="chat-input"
+          placeholder="Message..."
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && handleSend()}
+        />
+
+        {/* Send Button */}
+        <button className="send-btn" onClick={handleSend}>
+          Send
+        </button>
       </div>
     </div>
   );
-};
-
-export default Chat;
+}

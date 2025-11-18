@@ -1,26 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
-import Chat from "./Chat";
-import "../styles/ChatPage.css";
+import ChatWindow from "../components/ChatWindow";
 
 export default function ChatPage() {
+  
+  const [selectedUser, setSelectedUser] = useState(null);
 
-    const [selectedUser, setSelectedUser] = useState(null);
+  return (
+    <div className="chat-layout">
+      <Sidebar selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
 
-    return (
-        <div className="chat-container">
-
-            {/* LEFT SIDEBAR */}
-            <Sidebar
-                selectedUser={selectedUser}
-                setSelectedUser={setSelectedUser}
-            />
-
-            {/* RIGHT CHAT AREA */}
-            <div className="chat-panel">
-                <Chat selectedUser={selectedUser} />
-            </div>
-
-        </div>
-    );
+      {/* Chat window changes based on selected user */}
+      <ChatWindow selectedUser={selectedUser} />
+    </div>
+  );
 }

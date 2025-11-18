@@ -1,75 +1,71 @@
 import React, { useState } from 'react';
 import { User, Activity } from "lucide-react";
-// import UsersList from "./UsersList"; 
+import "../styles/Sidebar.css"; // external css
 
 export default function Sidebar({ currentUser, selectedUser, setSelectedUser }) {
     
-    // Mock data for UI testing
-    const mockCurrentUser = { id: 'alice_101', username: 'System_Admin' }; 
+    const mockCurrentUser = { id: 'alice_101', username: 'System_Admin' };
     const mockUsers = [
         { id: 'user_2', username: 'Data_Stream_1', isOnline: true },
         { id: 'user_3', username: 'Access_Point_4', isOnline: false },
-        { id: 'user_4', username: 'Guest_User', isOnline: true },
+        { id: 'user_4', username: 'Guest_User_1', isOnline: true },
+        { id: 'user_5', username: 'Guest_User_2', isOnline: true },
+        { id: 'user_6', username: 'Guest_User_3', isOnline: true },
+        { id: 'user_7', username: 'Guest_User_4', isOnline: true },
+        { id: 'user_9', username: 'Guest_User', isOnline: true },
+        { id: 'user_10', username: 'Guest_User', isOnline: true },
+        { id: 'user_11', username: 'Guest_User', isOnline: true },
+        { id: 'user_12', username: 'Guest_User', isOnline: true },
+        { id: 'user_13', username: 'Guest_User', isOnline: true },
+        { id: 'user_14', username: 'Guest_User', isOnline: true },
+        { id: 'user_15', username: 'Guest_User', isOnline: true },
+        { id: 'user_16', username: 'Guest_User', isOnline: true },
+        { id: 'user_17', username: 'Guest_User', isOnline: true },
+        { id: 'user_18', username: 'Guest_User', isOnline: true },
     ];
 
     const finalCurrentUser = currentUser || mockCurrentUser;
     const [users] = useState(mockUsers);
 
     const handleUserSelection = (user) => {
-        console.log(`User selected: ${user.username}`);
         if (setSelectedUser) setSelectedUser(user);
     };
 
     return (
-        <div className="w-64 bg-[#010409] border-r border-green-500/20 
-                        text-[#c9d1d9] font-mono select-none flex flex-col h-full">
+        <div className="discord-sidebar">
 
-            {/* Header */}
-            <div className="p-4 border-b border-green-500/30 text-xl font-bold text-green-400">
-                {/* Terminal Channel Label */}
-                &gt; USER_CHANNELS
+            {/* Top Section */}
+            <div className="sidebar-header">
+                <h3>Chats</h3>
             </div>
 
             {/* User List */}
-            <div className="flex flex-col flex-grow overflow-y-auto p-4">
-
+            <div className="sidebar-users">
                 {users.map((user) => (
                     <div
                         key={user.id}
                         onClick={() => handleUserSelection(user)}
-                        className={`
-                            flex items-center justify-between p-3 mb-2 rounded-lg cursor-pointer
-                            transition-all text-sm duration-200
-                            ${
-                                selectedUser && selectedUser.id === user.id
-                                ? 'bg-green-700/30 border border-green-500 text-white shadow-lg'
-                                : 'bg-gray-900/50 border border-gray-700/30 text-green-300 hover:bg-gray-800'
-                            }
-                        `}
+                        className={
+                            selectedUser?.id === user.id
+                                ? "user-item active-user"
+                                : "user-item"
+                        }
                     >
-                        {/* Username + Icon */}
-                        <div className="flex items-center truncate">
-                            <User className="w-4 h-4 mr-2 text-green-400" />
-                            <span className="truncate">{user.username}</span>
+                        <div className="user-avatar">
+                            <User size={18} />
+                            <span
+                                className={`status-dot ${user.isOnline ? "online" : "offline"}`}
+                            />
                         </div>
-
-                        {/* Status Dot */}
-                        <span 
-                            className={`h-2 w-2 rounded-full ml-2 
-                                ${user.isOnline ? 'bg-green-400 animate-pulse' : 'bg-gray-600'}
-                            `}
-                            title={user.isOnline ? 'Active' : 'Offline'}
-                        />
+                        <span className="username">{user.username}</span>
                     </div>
                 ))}
             </div>
 
             {/* Footer */}
-            <div className="mt-auto p-4 border-t border-green-500/30 text-xs text-green-500">
-                <div className="flex items-center">
-                    <Activity className="w-3 h-3 mr-2 text-green-400" />
-                    [STATUS]: {finalCurrentUser.username}
-                </div>
+            <div className="sidebar-footer">
+                <Activity size={16} />
+                <span>{finalCurrentUser.username}</span>
             </div>
         </div>
     );

@@ -16,19 +16,25 @@ import './index.css';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<App />}>
-      
-      <Route index element={<h1>Welcome Home!</h1>} />
-      <Route path="login" element={<Login />} />
-      <Route path="register" element={<Register />} />
+    <Route>
 
-      {/* CHAT PAGE WITH SIDEBAR */}
-      <Route path="chat" element={<ChatPage />} />
+      {/* App Layout Routes */}
+      <Route path="/" element={<App />}>
+        <Route index element={<h1>Welcome Home!</h1>} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+      </Route>
 
+      {/* Full-Screen Chat Route (not inside App) */}
+      <Route path="/chat" element={<ChatPage />} />
+
+      {/* 404 */}
       <Route path="*" element={<h1>404: Page Not Found</h1>} />
+
     </Route>
   )
 );
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

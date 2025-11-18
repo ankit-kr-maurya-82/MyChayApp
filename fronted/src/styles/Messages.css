@@ -1,0 +1,26 @@
+.message-bubble {
+  margin-bottom: 12px;
+  padding: 8px 12px;
+  max-width: 80%;
+  background: #3a3c43;
+  color: #e6e6e6;
+  border-radius: 8px;
+  width: fit-content;
+}
+
+.message-bubble .sender {
+  font-size: 12px;
+  color: #b5b5b5;
+  margin-bottom: 4px;
+}
+
+/* Right side (You) */
+.message-bubble.me {
+  background: #5865f2;
+  color: white;
+  margin-left: auto;
+}
+
+.message-bubble.me .sender {
+  color: #dcdcdc;
+}

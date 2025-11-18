@@ -9,93 +9,117 @@
     font-family: 'Consolas', 'Monaco', 'Courier New', monospace; 
     color: #cccccc;
     font-size: 14px;
+    overflow: hidden;
 }
 
-/* --- 2. Chat Window Container (The Terminal Box) --- */
+/* --- 2. Chat Window Container --- */
 .chat-window-container {
     display: flex;
     flex-direction: column;
     width: 90%;
-    max-width: 800px; /* Wider than the login form for better chat view */
+    max-width: 800px;
     height: 700px;
     background-color: #1e1e1e;
     border: 1px solid #008080;
-    border-radius: 4px;
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
-    overflow: hidden; /* Contains internal elements */
+    border-radius: 6px;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+    overflow: hidden;
 }
 
-/* --- 3. Header and Title Styles --- */
+/* --- 3. Header --- */
 .chat-header {
-    padding: 10px 20px;
+    padding: 12px 20px;
     background-color: #0d0d0d;
     border-bottom: 1px solid #00ff00;
 }
+
 .chat-header h2 {
     margin: 0;
     font-size: 1.2em;
+    letter-spacing: 1px;
 }
 
-/* Reusing the neon-title animation */
+/* Neon heading */
 @keyframes neon-glow {
     0% {
-        text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00; 
+        text-shadow: 0 0 4px #00ff00;
     }
     100% {
-        text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00; 
+        text-shadow: 0 0 10px #00ff00, 0 0 18px #00ff00;
     }
 }
-.neon-title {
-    color: #00ff00; 
-    text-shadow: 0 0 5px #00ff00; 
-    animation: neon-glow 2s ease-in-out infinite alternate;
-}
 
+.neon-title {
+    color: #00ff00;
+    animation: neon-glow 1.5s ease-in-out infinite alternate;
+}
 
 /* --- 4. Message Display Area --- */
 .message-list {
-    flex-grow: 1; /* Takes up all vertical space */
+    flex-grow: 1;
     overflow-y: auto;
-    padding: 15px;
-    background-color: #1e1e1e;
-    border-top: 1px solid #333;
-    /* Optional: Hide scrollbar for a cleaner look */
-    scrollbar-width: none; /* Firefox */
+    padding: 18px 15px;
+    background-color: #171717;
+    scrollbar-width: thin;
+    scrollbar-color: #00ff00 #1a1a1a;
 }
+
+/* Custom Scrollbar */
 .message-list::-webkit-scrollbar {
-    display: none; /* Chrome, Safari */
+    width: 8px;
+}
+.message-list::-webkit-scrollbar-thumb {
+    background: #00ff00;
+}
+.message-list::-webkit-scrollbar-track {
+    background: #1a1a1a;
 }
 
+/* Message lines */
 .message-line {
-    margin-bottom: 5px;
-    padding: 2px 0;
-    text-align: left;
+    margin-bottom: 8px;
     white-space: pre-wrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
+.message-line.user {
+    justify-content: flex-end;
+}
+.message-line.bot {
+    justify-content: flex-start;
+}
+
+/* Timestamp */
 .timestamp {
-    color: #008080; /* Teal/Cyan timestamp */
-    margin-right: 5px;
+    color: #00b3b3;
+    opacity: 0.8;
+    font-size: 0.85em;
 }
 
+/* Prompt indicators */
 .prompt-indicator {
     font-weight: bold;
-    margin-right: 5px;
 }
+
 .message-line.user .prompt-indicator {
-    color: #ffaa00; /* User prompt is orange */
+    color: #ffaa00;
 }
 .message-line.bot .prompt-indicator {
-    color: #00ff00; /* Bot prompt is green */
-}
-.message-line.bot .message-text {
-    color: #cccccc; /* Bot text is slightly subdued */
+    color: #00ff00;
 }
 
+/* Message text */
+.message-text {
+    max-width: 75%;
+    word-wrap: break-word;
+}
 
-/* --- 5. Input Form and Button --- */
+/* --- 5. Input Bar --- */
 .chat-input-form {
     display: flex;
+    gap: 10px;
     padding: 15px;
     background-color: #0d0d0d;
     border-top: 1px solid #00ff00;
@@ -106,34 +130,29 @@
     padding: 10px;
     background-color: #0d0d0d;
     color: #00ff00;
-    border: 1px solid #333333;
-    border-radius: 0;
-    margin-right: 10px;
-    font-family: inherit; /* Use monospaced font */
+    border: 1px solid #333;
+    font-family: inherit;
+    caret-color: #00ff00;
 }
+
 .chat-input:focus {
     outline: none;
     border-color: #00ff00;
-    box-shadow: 0 0 5px #00ff00;
-    caret-color: #00ff00; /* Set native cursor color to neon green */
+    box-shadow: 0 0 6px #00ff00;
 }
 
-/* Reusing submit-button styling from Login/Register for consistency */
+/* --- Submit Button --- */
 .submit-button {
-    background-color: #008080; 
+    background-color: #008080;
     color: #ffffff;
     padding: 10px 20px;
     border: 1px solid #00ff00;
-    border-radius: 0;
     cursor: pointer;
-    font-size: 1em;
-    transition: all 0.2s ease;
-    text-shadow: 0 0 5px #ffffff, 0 0 10px #00ff00; 
+    transition: 0.2s;
 }
 
 .submit-button:hover {
-    background-color: #00ff00; 
-    color: #1e1e1e; 
-    text-shadow: none; 
+    background-color: #00ff00;
+    color: #0d0d0d;
     box-shadow: 0 0 10px #00ff00;
 }

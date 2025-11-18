@@ -57,7 +57,7 @@ const Chat = () => {
         
         <header className='chat-header'>
           {/* Using neon-title for the thematic look */}
-          <h2 className='neon-title'>| CONSOLE CHAT </h2>
+          <h2 className='neon-title'>|  CHAT | username </h2>
         </header>
 
         {/* Message Display Area */}

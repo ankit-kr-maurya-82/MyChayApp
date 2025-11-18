@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import './styles/Chat.css'
+import "./styles/Chat.css";
 
 export default function Chat({ selectedUser }) {
   const [messages, setMessages] = useState([]);
@@ -8,7 +8,6 @@ export default function Chat({ selectedUser }) {
 
   const bottomRef = useRef(null);
 
-  // Auto-scroll every time messages update
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -16,24 +15,23 @@ export default function Chat({ selectedUser }) {
   const handleSend = () => {
     if (!input.trim() && !file) return;
 
-    let newMessage = { sender: "You", text: input };
+    let newMessage = {
+      sender: "You",
+      avatar: "/you.png", // your avatar (replace)
+      self: true,
+      type: "text",
+      text: input,
+    };
 
     if (file) {
-      if (file.type.startsWith("image/")) {
-        newMessage = {
-          sender: "You",
-          type: "image",
-          url: URL.createObjectURL(file),
-          name: file.name,
-        };
-      } else {
-        newMessage = {
-          sender: "You",
-          type: "file",
-          url: URL.createObjectURL(file),
-          name: file.name,
-        };
-      }
+      newMessage = {
+        sender: "You",
+        avatar: "/you.png",
+        self: true,
+        type: file.type.startsWith("image/") ? "image" : "file",
+        url: URL.createObjectURL(file),
+        name: file.name,
+      };
     }
 
     setMessages((prev) => [...prev, newMessage]);
@@ -43,8 +41,9 @@ export default function Chat({ selectedUser }) {
   };
 
   const handleFileChange = (e) => {
-    if (!e.target.files[0]) return;
-    setFile(e.target.files[0]);
+    if (e.target.files[0]) {
+      setFile(e.target.files[0]);
+    }
   };
 
   return (
@@ -52,44 +51,54 @@ export default function Chat({ selectedUser }) {
 
       {/* Header */}
       <div className="chat-header">
-        {selectedUser ? selectedUser.username : "Select a user"}
+        {selectedUser ? selectedUser.username : "Select a User"}
       </div>
 
       {/* Messages */}
       <div className="chat-body">
         {messages.map((msg, index) => (
-          <div key={index} className="chat-msg">
-            <strong>{msg.sender}:</strong>
+          <div
+            key={index}
+            className={`chat-row ${msg.self ? "right" : "left"}`}
+          >
+            {/* Avatar */}
+            <img
+              src={msg.avatar || "/default-user.png"}
+              alt="Avatar"
+              className="chat-avatar"
+            />
 
-            {msg.text && <p>{msg.text}</p>}
+            {/* Bubble */}
+            <div className="chat-msg">
+              <div className="chat-sender">{msg.sender}</div>
 
-            {/* Image preview */}
-            {msg.type === "image" && (
-              <img src={msg.url} alt="" className="chat-image" />
-            )}
+              {msg.text && (
+                <p className="chat-text">{msg.text}</p>
+              )}
 
-            {/* File download */}
-            {msg.type === "file" && (
-              <a className="chat-file" href={msg.url} download>
-                📄 {msg.name}
-              </a>
-            )}
+              {msg.type === "image" && (
+                <img src={msg.url} alt="" className="chat-image" />
+              )}
+
+              {msg.type === "file" && (
+                <a className="chat-file" href={msg.url} download>
+                  {msg.name}
+                </a>
+              )}
+            </div>
           </div>
         ))}
 
         <div ref={bottomRef}></div>
       </div>
 
-      {/* Input Section */}
+      {/* Input */}
       <div className="chat-input-bar">
-
-        {/* File Upload Button */}
         <label className="upload-btn">
           📎
           <input type="file" hidden onChange={handleFileChange} />
         </label>
 
-        {/* Text Input */}
         <input
           className="chat-input"
           placeholder="Message..."
@@ -98,7 +107,6 @@ export default function Chat({ selectedUser }) {
           onKeyDown={(e) => e.key === "Enter" && handleSend()}
         />
 
-        {/* Send Button */}
         <button className="send-btn" onClick={handleSend}>
           Send
         </button>

@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./styles/Login.css"; // <-- Ensure you import the correct CSS file
+import "./styles/Login.css";
 
 const Login = () => {
-  // 1. Initial State: Only needs email and password for login
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+    avatar: null,
   });
+
+  const [previewImage, setPreviewImage] = useState(null);
+
   const btnText = "Login";
 
-  // 2. Handler to update state based on input 'name' attribute
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -18,31 +20,36 @@ const Login = () => {
     });
   };
 
-  // 3. Form Submission Handler
+  // File Upload Handler
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setFormData({ ...formData, avatar: file });
+
+    // Show preview
+    const url = URL.createObjectURL(file);
+    setPreviewImage(url);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("User Login Data: ", formData);
-    // Add your authentication/API call logic here
-    alert(`Attempting login for: ${formData.email}`);
+
+    console.log("Login Data:", formData);
+    alert("Login submitted!");
   };
 
   return (
-    // Outer container for full-screen centering
     <div className="container">
-      {/* Inner container to hold form content and apply style box */}
-      <div className="child-container"> 
-        
-        {/* Title with Neon Glow CSS class */}
+      <div className="child-container">
         <h1 className="neon-title">SYSTEM LOGIN</h1>
-        
-        {/* Placeholder for the unique ID (like in the Register component) */}
+
         <p className="uniqueId">STATUS: AUTH_INIT</p>
-        
+
         <form onSubmit={handleSubmit}>
-          
-          {/* Email Input */}
-          {/* Label's htmlFor matches Input's id for accessibility */}
-          <label htmlFor="email-input"> 
+
+          {/* Email */}
+          <label htmlFor="email-input">
             EMAIL
             <input
               type="email"
@@ -53,9 +60,9 @@ const Login = () => {
               required
             />
           </label>
-          
-          {/* Password Input */}
-          <label htmlFor="password-input"> 
+
+          {/* Password */}
+          <label htmlFor="password-input">
             PASSWORD
             <input
               type="password"
@@ -66,18 +73,25 @@ const Login = () => {
               required
             />
           </label>
-          
-          {/* Submit Button - Uses the submit-button class for neon style */}
+
+
+          {/* IMAGE PREVIEW */}
+          {previewImage && (
+            <div className="image-preview-box">
+              <img src={previewImage} alt="preview" className="preview-img" />
+            </div>
+          )}
+
+          {/* Submit */}
           <button type="submit" className="submit-button">
             {btnText}
           </button>
-          
-          {/* Navigation Link */}
+
           <p>
             You haven't an account?
             <Link to="/register">Register</Link>
           </p>
-          
+
         </form>
       </div>
     </div>

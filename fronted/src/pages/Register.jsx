@@ -8,16 +8,18 @@ const Register = () => {
     email: "",
     password: "",
   });
-  // State for the generated unique ID
-  const [uniqueId, setUniqueId] = useState('');
+
+  const [uniqueId, setUniqueId] = useState("");
+  const [imageFile, setImageFile] = useState(null);
+  const [previewURL, setPreviewURL] = useState(null);
+
   const btnText = "Register";
 
-  // Generate unique ID when the component loads
   useEffect(() => {
-    if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+    if (crypto?.randomUUID) {
       setUniqueId(crypto.randomUUID());
     } else {
-      setUniqueId('00000000-0000-0000-0000-000000000000');
+      setUniqueId("00000000-0000-0000-0000-000000000000");
     }
   }, []);
 
@@ -28,28 +30,59 @@ const Register = () => {
     });
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImageFile(file);
+
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setPreviewURL(url);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("User Registration Data: ", formData, 'Assigned ID:', uniqueId);
-    // Add API call logic here
+
+    console.log("User Registration Data:", formData);
+    console.log("Assigned ID:", uniqueId);
+    console.log("Uploaded Image:", imageFile);
+
+    // TODO: API call
   };
 
   return (
     <div className="register-container">
-      {/* Central Content Box */}
-      <div className="child-container"> 
-        <h1 className="neon-title">SYSTEM REGISTER</h1> 
-        
-        {/* Display the Generated Unique ID */}
+
+      {/* Box with Title + Unique ID */}
+      <div className="child-container">
+        <h1 className="neon-title">SYSTEM REGISTER</h1>
+
         <div className="unique-id-display">
-          <span>ASSIGNED USER ID:</span> 
+          <span>ASSIGNED USER ID:</span>
           <span className="id-value">{uniqueId}</span>
         </div>
       </div>
 
       <form onSubmit={handleSubmit}>
-        
-        {/* Name Input - htmlFor is correct */}
+
+        {/* IMAGE UPLOAD */}
+        <label className="file-upload-label">
+          USER IMAGE
+          <input
+            type="file"
+            accept="image/*"
+            className="file-input"
+            onChange={handleImageChange}
+          />
+        </label>
+
+        {previewURL && (
+          <div className="image-preview-box">
+            <img src={previewURL} className="preview-img" />
+          </div>
+        )}
+
+        {/* NAME */}
         <label htmlFor="name-input">
           NAME
           <input
@@ -61,9 +94,9 @@ const Register = () => {
             required
           />
         </label>
-        
-        {/* Email Input - htmlFor fixed */}
-        <label htmlFor="email-input"> 
+
+        {/* EMAIL */}
+        <label htmlFor="email-input">
           EMAIL
           <input
             type="email"
@@ -74,8 +107,8 @@ const Register = () => {
             required
           />
         </label>
-        
-        {/* Password Input - htmlFor fixed */}
+
+        {/* PASSWORD */}
         <label htmlFor="password-input">
           PASSWORD
           <input
@@ -87,16 +120,15 @@ const Register = () => {
             required
           />
         </label>
-        
-        {/* Submit Button - Replaced <input> with <button> */}
+
         <button type="submit" className="submit-button">
           {btnText}
         </button>
-        
+
         <p>
           Already have an account?
           <Link to="/login">Login</Link>
-        </p>{" "}
+        </p>
       </form>
     </div>
   );

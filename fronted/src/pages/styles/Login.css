@@ -1,123 +1,167 @@
-/* --- 1. Global Page Layout (The Terminal Screen) --- */
+/* =============================
+   GLOBAL PAGE CONTAINER
+   ============================= */
 .container {
-  /* Dark background and full viewport size for centering */
-  background-color: #010409;
-  min-height: 100vh;
-  width: 100vw;
-  
-  /* Flexbox Centering */
+  width: 100%;
+  height: 100vh;
+  background: #02050a;
   display: flex;
-  justify-content: center; /* Horizontal Center */
-  align-items: center;    /* Vertical Center */
-  
-  /* Coder Font and Base Text Color */
-  font-family: 'Consolas', 'Monaco', 'Courier New', monospace; 
-  color: #cccccc;
-  font-size: 14px;
+  justify-content: center;
+  align-items: center;
+  font-family: "Orbitron", monospace;
+  color: #00eaff;
+  padding: 20px;
 }
 
-/* --- 2. Login Box Styling (The Central Console) --- */
+/* LOGIN BOX */
 .child-container {
-    padding: 30px;
-    background-color: #1e1e1e; /* Slight contrast from page background */
-    border: 1px solid #008080; /* Teal/Cyan Border */
-    border-radius: 3px;
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5); /* Neon glow effect */
-    max-width: 380px;
-    width: 100%;
-    text-align: center;
+  width: 380px;
+  padding: 30px;
+  border-radius: 12px;
+  background: rgba(0, 10, 20, 0.85);
+  border: 1px solid #00eaff44;
+  box-shadow: 0 0 25px #00eaff33;
+  text-align: center;
 }
 
-/* --- 3. Heading and Neon Text Animation --- */
-@keyframes neon-glow {
-    0% {
-        text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00; 
-    }
-    100% {
-        text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00; 
-    }
-}
-
+/* =============================
+   TITLE
+   ============================= */
 .neon-title {
-    color: #00ff00; /* Neon green header color */
-    text-shadow: 0 0 5px #00ff00; 
-    margin-bottom: 25px;
-    /* Apply the pulsating animation */
-    animation: neon-glow 2s ease-in-out infinite alternate;
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #00eaff;
+  margin-bottom: 5px;
+  text-shadow: 0 0 10px #00eaff, 0 0 20px #00eaff;
 }
 
-/* --- 4. Unique ID/Status Display --- */
 .uniqueId {
-    color: #ffaa00; /* Highlighted text color */
-    margin-bottom: 20px;
-    padding: 8px;
-    border: 1px dashed #505050;
-    text-align: left;
-    white-space: pre-wrap; 
+  font-size: 12px;
+  color: #00eaffaa;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
 }
 
-/* --- 5. Form Structure and Inputs --- */
-.child-container form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px; 
-    margin-top: 20px;
+/* =============================
+   INPUT LABEL + FIELD
+   ============================= */
+label {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-top: 14px;
+  color: #00eaff;
+  font-size: 13px;
+  letter-spacing: 1px;
 }
 
-.child-container label {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    font-weight: normal;
-    color: #a0a0a0; /* Dimmer label text */
-    text-transform: uppercase;
+input {
+  margin-top: 6px;
+  padding: 10px;
+  border: none;
+  outline: none;
+  background: rgba(0, 255, 255, 0.06);
+  color: #e7ffff;
+  border-bottom: 2px solid #00eaff;
+  transition: 0.2s ease-in-out;
 }
 
-.child-container input[type="email"],
-.child-container input[type="password"] {
-    padding: 8px 10px;
-    margin-top: 5px;
-    background-color: #0d0d0d; /* Dark input box */
-    color: #00ff00; /* Bright green input text */
-    border: 1px solid #333333;
-    border-radius: 0;
+input:focus {
+  border-bottom: 2px solid #00fff7;
+  box-shadow: 0 0 10px #00eaff66;
 }
 
-.child-container input:focus {
-    outline: none;
-    border-color: #00ff00; 
-    box-shadow: 0 0 5px #00ff00;
-}
-
-/* --- 6. Submit Button Styling (The Execute Command) --- */
+/* =============================
+   SUBMIT BUTTON
+   ============================= */
 .submit-button {
-    background-color: #008080; 
-    color: #ffffff;
-    padding: 10px 20px;
-    border: 1px solid #00ff00;
-    border-radius: 0;
-    cursor: pointer;
-    font-size: 1em;
-    margin-top: 25px;
-    transition: all 0.2s ease;
-    text-shadow: 0 0 5px #ffffff, 0 0 10px #00ff00; /* CRT glow */
+  width: 100%;
+  margin-top: 25px;
+  padding: 12px;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  background: #00eaff;
+  color: #001014;
+  letter-spacing: 1px;
+  font-weight: bold;
+  transition: 0.25s;
 }
 
 .submit-button:hover {
-    background-color: #00ff00; 
-    color: #1e1e1e; /* Text turns dark */
-    text-shadow: none; 
-    box-shadow: 0 0 10px #00ff00;
+  background: #00faff;
+  box-shadow: 0 0 12px #00eaff99;
 }
 
-/* --- 7. Router Link Style --- */
-.child-container p a {
-    color: #00ffff; /* Cyan color for links */
-    text-decoration: none;
-    border-bottom: 1px dashed #00ffff;
-    transition: color 0.2s;
+/* =============================
+   NAV LINKS
+   ============================= */
+p {
+  margin-top: 14px;
+  font-size: 13px;
 }
 
-.child-container p a:hover {
-    color: #ffffff;
+a {
+  margin-left: 5px;
+  color: #00eaff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* =============================
+   FILE UPLOAD (Style D)
+   ============================= */
+.file-upload-label {
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+  color: #00eaff;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+/* Hidden ugly input but clickable */
+.file-input {
+  margin-top: 8px;
+  padding: 10px;
+  border: 1px dashed #00eaff;
+  border-radius: 6px;
+  background: rgba(0, 255, 255, 0.05);
+  color: white;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.file-input:hover {
+  background: rgba(0, 255, 255, 0.1);
+  box-shadow: 0 0 6px #00eaff77;
+}
+
+/* =============================
+   IMAGE PREVIEW
+   ============================= */
+.image-preview-box {
+  width: 130px;
+  height: 130px;
+  margin: 15px auto 0 auto;
+  border: 2px solid #00eaff;
+  border-radius: 8px;
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000a12;
+  box-shadow: 0 0 10px #00eaff55;
+}
+
+.preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
 }

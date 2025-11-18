@@ -1,45 +1,87 @@
-import { useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "./styles/Login.css"; // <-- Ensure you import the correct CSS file
 
-export default function Login() {
- 
+const Login = () => {
+  // 1. Initial State: Only needs email and password for login
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const btnText = "Login";
+
+  // 2. Handler to update state based on input 'name' attribute
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // 3. Form Submission Handler
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("User Login Data: ", formData);
+    // Add your authentication/API call logic here
+    alert(`Attempting login for: ${formData.email}`);
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#0a0f15]">
-      <div className="relative border border-green-500/20 shadow-xl shadow-green-500/10 bg-black/40 backdrop-blur-xl p-10 rounded-2xl w-[380px]">
-
-        {/* Coder neon border glow */}
-        <div className="absolute inset-0 rounded-2xl border border-green-500/10 pointer-events-none" />
-
-        <h2 className="text-3xl font-bold text-green-400 text-center mb-6 tracking-wider">Login
-        </h2>
-
-        <form  className="flex flex-col gap-5">
-          <input
-            placeholder="Username"
-            className="bg-[#0d1117] border border-green-500/30 text-green-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-green-400 outline-none font-mono"
-            required
-          />
-
-          <input
-            type="password"
-            placeholder="Password"
-            className="bg-[#0d1117] border border-green-500/30 text-green-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-green-400 outline-none font-mono"
-            required
-          />
-
-          <button
-            type="submit"
-            className="w-full bg-green-500/20 border border-green-400 text-green-300 font-bold py-3 rounded-lg hover:bg-green-500/30 transition-all font-mono"
-          >
+    // Outer container for full-screen centering
+    <div className="container">
+      {/* Inner container to hold form content and apply style box */}
+      <div className="child-container"> 
+        
+        {/* Title with Neon Glow CSS class */}
+        <h1 className="neon-title">SYSTEM LOGIN</h1>
+        
+        {/* Placeholder for the unique ID (like in the Register component) */}
+        <p className="uniqueId">STATUS: AUTH_INIT</p>
+        
+        <form onSubmit={handleSubmit}>
+          
+          {/* Email Input */}
+          {/* Label's htmlFor matches Input's id for accessibility */}
+          <label htmlFor="email-input"> 
+            EMAIL
+            <input
+              type="email"
+              name="email"
+              id="email-input"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </label>
+          
+          {/* Password Input */}
+          <label htmlFor="password-input"> 
+            PASSWORD
+            <input
+              type="password"
+              name="password"
+              id="password-input"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </label>
+          
+          {/* Submit Button - Uses the submit-button class for neon style */}
+          <button type="submit" className="submit-button">
+            {btnText}
           </button>
+          
+          {/* Navigation Link */}
+          <p>
+            You haven't an account?
+            <Link to="/register">Register</Link>
+          </p>
+          
         </form>
-
-        <button
-          className="mt-6 w-full text-green-400 hover:text-green-300 font-mono"
-        >
-        </button>
       </div>
     </div>
   );
-}
+};
+
+export default Login;

@@ -1,0 +1,139 @@
+/* --- 1. Global Page Layout (Full-Screen Dark Background) --- */
+.chat-page-container {
+    background-color: #010409;
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace; 
+    color: #cccccc;
+    font-size: 14px;
+}
+
+/* --- 2. Chat Window Container (The Terminal Box) --- */
+.chat-window-container {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    max-width: 800px; /* Wider than the login form for better chat view */
+    height: 700px;
+    background-color: #1e1e1e;
+    border: 1px solid #008080;
+    border-radius: 4px;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+    overflow: hidden; /* Contains internal elements */
+}
+
+/* --- 3. Header and Title Styles --- */
+.chat-header {
+    padding: 10px 20px;
+    background-color: #0d0d0d;
+    border-bottom: 1px solid #00ff00;
+}
+.chat-header h2 {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+/* Reusing the neon-title animation */
+@keyframes neon-glow {
+    0% {
+        text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00; 
+    }
+    100% {
+        text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00; 
+    }
+}
+.neon-title {
+    color: #00ff00; 
+    text-shadow: 0 0 5px #00ff00; 
+    animation: neon-glow 2s ease-in-out infinite alternate;
+}
+
+
+/* --- 4. Message Display Area --- */
+.message-list {
+    flex-grow: 1; /* Takes up all vertical space */
+    overflow-y: auto;
+    padding: 15px;
+    background-color: #1e1e1e;
+    border-top: 1px solid #333;
+    /* Optional: Hide scrollbar for a cleaner look */
+    scrollbar-width: none; /* Firefox */
+}
+.message-list::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+}
+
+.message-line {
+    margin-bottom: 5px;
+    padding: 2px 0;
+    text-align: left;
+    white-space: pre-wrap;
+}
+
+.timestamp {
+    color: #008080; /* Teal/Cyan timestamp */
+    margin-right: 5px;
+}
+
+.prompt-indicator {
+    font-weight: bold;
+    margin-right: 5px;
+}
+.message-line.user .prompt-indicator {
+    color: #ffaa00; /* User prompt is orange */
+}
+.message-line.bot .prompt-indicator {
+    color: #00ff00; /* Bot prompt is green */
+}
+.message-line.bot .message-text {
+    color: #cccccc; /* Bot text is slightly subdued */
+}
+
+
+/* --- 5. Input Form and Button --- */
+.chat-input-form {
+    display: flex;
+    padding: 15px;
+    background-color: #0d0d0d;
+    border-top: 1px solid #00ff00;
+}
+
+.chat-input {
+    flex-grow: 1;
+    padding: 10px;
+    background-color: #0d0d0d;
+    color: #00ff00;
+    border: 1px solid #333333;
+    border-radius: 0;
+    margin-right: 10px;
+    font-family: inherit; /* Use monospaced font */
+}
+.chat-input:focus {
+    outline: none;
+    border-color: #00ff00;
+    box-shadow: 0 0 5px #00ff00;
+    caret-color: #00ff00; /* Set native cursor color to neon green */
+}
+
+/* Reusing submit-button styling from Login/Register for consistency */
+.submit-button {
+    background-color: #008080; 
+    color: #ffffff;
+    padding: 10px 20px;
+    border: 1px solid #00ff00;
+    border-radius: 0;
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 0.2s ease;
+    text-shadow: 0 0 5px #ffffff, 0 0 10px #00ff00; 
+}
+
+.submit-button:hover {
+    background-color: #00ff00; 
+    color: #1e1e1e; 
+    text-shadow: none; 
+    box-shadow: 0 0 10px #00ff00;
+}

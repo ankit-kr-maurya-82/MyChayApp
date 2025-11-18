@@ -1,0 +1,123 @@
+/* --- 1. Global Page Layout (The Terminal Screen) --- */
+.container {
+  /* Dark background and full viewport size for centering */
+  background-color: #010409;
+  min-height: 100vh;
+  width: 100vw;
+  
+  /* Flexbox Centering */
+  display: flex;
+  justify-content: center; /* Horizontal Center */
+  align-items: center;    /* Vertical Center */
+  
+  /* Coder Font and Base Text Color */
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace; 
+  color: #cccccc;
+  font-size: 14px;
+}
+
+/* --- 2. Login Box Styling (The Central Console) --- */
+.child-container {
+    padding: 30px;
+    background-color: #1e1e1e; /* Slight contrast from page background */
+    border: 1px solid #008080; /* Teal/Cyan Border */
+    border-radius: 3px;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5); /* Neon glow effect */
+    max-width: 380px;
+    width: 100%;
+    text-align: center;
+}
+
+/* --- 3. Heading and Neon Text Animation --- */
+@keyframes neon-glow {
+    0% {
+        text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00; 
+    }
+    100% {
+        text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00; 
+    }
+}
+
+.neon-title {
+    color: #00ff00; /* Neon green header color */
+    text-shadow: 0 0 5px #00ff00; 
+    margin-bottom: 25px;
+    /* Apply the pulsating animation */
+    animation: neon-glow 2s ease-in-out infinite alternate;
+}
+
+/* --- 4. Unique ID/Status Display --- */
+.uniqueId {
+    color: #ffaa00; /* Highlighted text color */
+    margin-bottom: 20px;
+    padding: 8px;
+    border: 1px dashed #505050;
+    text-align: left;
+    white-space: pre-wrap; 
+}
+
+/* --- 5. Form Structure and Inputs --- */
+.child-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+    margin-top: 20px;
+}
+
+.child-container label {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    font-weight: normal;
+    color: #a0a0a0; /* Dimmer label text */
+    text-transform: uppercase;
+}
+
+.child-container input[type="email"],
+.child-container input[type="password"] {
+    padding: 8px 10px;
+    margin-top: 5px;
+    background-color: #0d0d0d; /* Dark input box */
+    color: #00ff00; /* Bright green input text */
+    border: 1px solid #333333;
+    border-radius: 0;
+}
+
+.child-container input:focus {
+    outline: none;
+    border-color: #00ff00; 
+    box-shadow: 0 0 5px #00ff00;
+}
+
+/* --- 6. Submit Button Styling (The Execute Command) --- */
+.submit-button {
+    background-color: #008080; 
+    color: #ffffff;
+    padding: 10px 20px;
+    border: 1px solid #00ff00;
+    border-radius: 0;
+    cursor: pointer;
+    font-size: 1em;
+    margin-top: 25px;
+    transition: all 0.2s ease;
+    text-shadow: 0 0 5px #ffffff, 0 0 10px #00ff00; /* CRT glow */
+}
+
+.submit-button:hover {
+    background-color: #00ff00; 
+    color: #1e1e1e; /* Text turns dark */
+    text-shadow: none; 
+    box-shadow: 0 0 10px #00ff00;
+}
+
+/* --- 7. Router Link Style --- */
+.child-container p a {
+    color: #00ffff; /* Cyan color for links */
+    text-decoration: none;
+    border-bottom: 1px dashed #00ffff;
+    transition: color 0.2s;
+}
+
+.child-container p a:hover {
+    color: #ffffff;
+}

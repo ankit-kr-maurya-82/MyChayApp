@@ -1,15 +1,20 @@
-import { useState } from "react";
-import UsersList from "./UsersList";
-import Chat from "./pages/Chat";
-import Login from "./pages/Login";
+// App.jsx
+import { Outlet } from 'react-router-dom';
 
-export default function App({ user, socket }) {
-  const [selectedUser, setSelectedUser] = useState(null);
-
+function App() {
   return (
-    <div className="flex h-screen bg-[#0d0f10] text-[#c9d1d9] font-mono">
-     <Login/>
-     
+    <div>
+      {/* This content (like a header/footer) will show on EVERY page */}
+      {/* <header>My App Navigation</header> */}
+      
+      {/* The component for the matched route (Login, Register, Home) renders here */}
+      <main>
+        <Outlet />
+      </main>
+      
+      {/* <footer>© 2025</footer> */}
     </div>
   );
 }
+
+export default App;
